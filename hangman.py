@@ -43,36 +43,47 @@ clsbtn = Button(Window, text = "Click To Close Game",command = Window.destroy).g
 
 
 
-def submit(my_text_box):
-    submitch = Button(Window, text = "Submit",command =lambda: getInput(my_text_box))
+def submit(my_text_box,rndmword,word):
+    submitch = Button(Window, text = "Submit",command =lambda: getInput(my_text_box,rndmword,word))
     submitch.grid(column=0,row=0,sticky='N',pady=50)
 
 def startgame():
-    textbox()
-    generateword()
+    textbox(generateword(0),generateword(1))
     label = Label(frame,image = hangmanbase).pack()
 
-def generateword():
+def generateword(flow):
     word = []
     rndmword = random.choice(words)
     for chrcnt in rndmword:
         word.append("_")
     wordlabel = Label(Window, text = word, font = ("Ariel",25)).grid(column=0,row=0,pady=150,sticky = 'N')
+    if flow == 0:
+        return(rndmword)
+    elif flow == 1:
+        return(word)
 
 
-def getInput(my_text_box):
+
+def getInput(my_text_box,rndmword,word):
     inpt = my_text_box.get("1.0","end-1c")
     #what to do with inpt after submitting, can add functions here
-    checkanswer(inpt)
+    print(rndmword)
+    print(word)
+    #checkanswer(inpt,rndmword,word)
 
-def textbox():    
+def textbox(rndmword,word):    
     my_text_box = Text(Window,height=5, width = 10)
     my_text_box.grid(column=0,row=0,sticky='N',pady=75)
-    submit(my_text_box)
+    submit(my_text_box,rndmword,word)
     return my_text_box
 
-def checkanswer(inpt):
-    print('answer being checked')   
+def checkanswer(inpt,rndmword,word):
+   for index, char in rndmword:
+       if char == inpt:
+           word[index].replace(inpt)
+    
+        
+           
 
 def setimage(count,label):
     if count == 1:
