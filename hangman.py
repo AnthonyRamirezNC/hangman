@@ -24,7 +24,7 @@ Window.columnconfigure(1, weight=2)
 frame = Frame(Window, width=600, height=400)
 frame.grid(column=1,row=0)
 
-updatelabel = ""
+updatelabel = " "
 
 #hangman pictures
 hangmanbase = ImageTk.PhotoImage(Image.open("hangmanbase.jpg"))
@@ -59,7 +59,7 @@ def startgame():
 def generateword(flow,word,rndmword):
     global wordlabel
     for chrcnt in rndmword:
-        word.append("X")
+        word.append("x")
     wordlabel = Label(Window, text = word, font = ("Ariel",20)).grid(column=0,row=0,pady=150,sticky = 'N')
     
     textbox(rndmword,word,wordlabel)#need to change get word function to update label
@@ -83,14 +83,15 @@ def textbox(rndmword,word,wordlabel):
     my_text_box = Text(Window,height=5, width = 10)
     my_text_box.grid(column=0,row=0,sticky='N',pady=75)
     submit(my_text_box,rndmword,word,wordlabel)
-    return my_text_box
+    return(my_text_box)
 
 def checkanswer(inpt,rndmword,word,wordlabel,updatelabel): ######################################
     for index, char in enumerate(rndmword):
         if char == inpt:
-            updatelabel = updatelabel + inpt
+            updatelabel = updatelabel + inpt + " "
+            
         elif char != inpt:
-            updatelabel = updatelabel + "X"
+            updatelabel = updatelabel + " x "
         updt = getupdtlbl(updatelabel,0)
     
     Label(Window, text = updt, font = ("Ariel",20)).grid(column=0,row=0,pady=150,sticky = 'N')
